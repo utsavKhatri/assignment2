@@ -1,0 +1,83 @@
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidebar %>
+  <!-- Main content -->
+  <div class="main-content">
+    <!-- Top navbar -->
+    <% include ../partials/navbar %>
+    <!-- Header -->
+    <!-- <% include ../partials/header %> -->
+    <!-- Page content -->
+    <div class="bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="row px-3">
+        <table  class="table bg-white m-5">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Category</th>
+              <th scope="col">Description</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%  if(data.length<1){ %>
+            <tr>
+              <td colspan="5" class="text-center">
+                No data available in database
+              </td>
+            </tr>
+            <% } else{ data.map((v, i)=>{ %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= v.name %></td>
+              <td><%= v.category %></td>
+              <td><%= v.description %></td>
+              <td>
+                <a class="edit-btn" href="/edit/<%= v._id  %>"
+                  ><i class="fa fa-duotone fa-pen-to-square"></i
+                ></a>
+              </td>
+              <td>
+                <i
+                  id="<%= v._id  %>"
+                  class="delete-btn fa fa-duotone fa-trash"
+                ></i>
+                <!-- <img id="<%= v.id  %>" class="delete-btn" src="https://img.icons8.com/fluency/24/null/delete-forever.png"/> -->
+              </td>
+            </tr>
+            <% }) }%>
+          </tbody>
+        </table>
+
+      </div>
+      
+      <!-- <% include ../partials/footer %> -->
+    </div>
+  </div>
+  <!-- Include scripts -->
+  <% include ../partials/scripts %>
+
+  <script>
+
+const delBlog = document.querySelectorAll(".delete-btn");
+      delBlog.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          const endpoint = `/blogs/${item.id}`;
+          console.log(endpoint);
+          fetch(endpoint, { method: "DELETE" })
+            .then((response) => response.json())
+            .then((data) => {
+              window.location.href = data.redirect;
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+      });
+
+
+  </script>
+</body>
+
