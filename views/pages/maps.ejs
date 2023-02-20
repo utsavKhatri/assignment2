@@ -5,69 +5,80 @@
   <div class="main-content">
     <!-- Top navbar -->
     <% include ../partials/navbar %>
-    <!-- Header -->
-    <!-- <% include ../partials/header %> -->
-    <!-- Page content -->
 
     <div class="bg-gradient-primary pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
-
         <h1 class="text-white">create new blog</h1>
-            <form class="text-white" action="/blogs/add-blog" method="post">
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label"
-                  >Blog title</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  name="name"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="select">Select category</label>
-                <select
-                  class="form-select"
-                  aria-label="Default select example"
-                  style="
-                    width: 100%;
-                    border: 0.1em solid rgb(193, 193, 193);
-                    border-radius: 5px;
-                    color: rgb(116, 116, 116);
-                    background-color: white;
-                  "
-                  name="category"
-                  required
-                >
-                  <option selected>Open this select blog category</option>
-                  <option value="1">sports</option>
-                  <option value="2">educational</option>
-                  <option value="3">business</option>
-                  <option value="3">programming</option>
-                  <option value="3">current affair</option>
-                  <option value="3">other</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputDescription1" class="form-label"
-                  >Description</label
-                >
-                <textarea
-                  type="text"
-                  class="form-control"
-                  id="exampleInputDescription1"
-                  name="description"
-                  required
-                ></textarea>
-              </div>
+        <form class="text-white" action="/blogs/add-blog" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Blog title</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="select">Select category</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              style="
+                width: 100%;
+                border: 0.1em solid rgb(193, 193, 193);
+                border-radius: 5px;
+                color: rgb(116, 116, 116);
+                background-color: white;
+              "
+              name="category"
+              required
+            >
+              <option selected>Open this select blog category</option>
+              <% if(catData.length>1){ catData.map(v=>{ %>
+              <option value="<%= v.categoryName %>">
+                <%= v.categoryName %>
+              </option>
+              <% }) }%>
+            </select>
+          </div>
 
-              <button type="submit" class="btn btn-white">Create Blog</button>
-            </form>
-          
- 
+          <div class="form-group mb-3">
+            <label for="Inputfile">Upload image</label>
+            <input
+              class="form-control"
+              type="file"
+              name="images"
+              placeholder="select file want to upload"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputDescription1" class="form-label"
+              >Description</label
+            >
+            <textarea
+              type="text"
+              class="form-control"
+              id="editor-container"
+              style="height: 350px"
+              id="exampleInputDescription1"
+              name="description"
+              required
+            ></textarea>
+
+            <!-- <div id="editor-container" style="height: 350px;" class="form-control"  name="description"
+            required>
+            </div> -->
+
+
+          </div>
+
+          <button type="submit" class="btn btn-white">Create Blog</button>
+        </form>
       </div>
     </div>
 
@@ -76,6 +87,20 @@
       <% include ../partials/footer %>
     </div> -->
   </div>
+  <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+  <script>
+    let quill = new Quill('#editor-container', {
+  modules: {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ['bold', 'italic', 'underline'],
+      ['image', 'code-block']
+    ]
+  },
+  placeholder: 'Compose an epic...',
+  theme: 'snow'  // or 'bubble'
+});
+  </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3PjUqq81lIOfBPYXrQGWwK5T4ystZjA"></script>
 
   <!-- Include scripts -->

@@ -1,63 +1,49 @@
 import { Router } from "express";
-import { Blog } from "../models/blogModel.js";
 
+import { requireLogin } from "../middlewares/checkAuth.js";
+
+import {
+  addBlog,
+  addCategory,
+  blogDetailed,
+  dashboardController,
+  homeController,
+  iconController,
+  loginPage,
+  logoutController,
+  signupPage,
+  userLogin,
+  userSignup,
+  viewCategory,
+  viewProfile,
+} from "../controllers/indexController.js";
 
 const indexRouter = Router();
 
-indexRouter.get("/", (req, res) => {
-  Blog.find().then((result) => {
-    res.render("pages/dashboard", { data: result });
-  }).catch((err)=>{
-    console.log(err);
-  })
-});
+indexRouter.get("/", requireLogin, dashboardController);
 
-indexRouter.get("/icons", (req, res) => {
-  res.render("pages/icons");
-});
+indexRouter.get("/icons", iconController);
 
-indexRouter.get("/add-blog", (req, res) => {
-  res.render("pages/maps");
-});
+indexRouter.get("/add-blog", addBlog);
 
-indexRouter.get("/tables", (req, res) => {
-  res.render("pages/tables");
-});
-indexRouter.get("/login", (req, res) => {
-  res.render("pages/login");
-});
-indexRouter.get("/signup", (req, res) => {
-  res.render("pages/register");
-});
-indexRouter.get("/profile", (req, res) => {
-  res.render("pages/profile");
-});
+indexRouter.get("/categories", viewCategory);
 
-// blogRouter.get('/add-blog',(req,res)=>{
-//   const blogData = [req.body.name, req.body.category, req.body.description];
-//   console.log(blogData);
+indexRouter.get("/add-category", addCategory);
 
-//   try {
-//       const blog = new Blog({
-//           name: req.body.name,
-//           category: req.body.category,
-//           description:req.body.description
-//       });
+indexRouter.post("/register", userSignup);
 
-//       blog.save().then(result => {
-//           console.log(result);
-//           res.status(201).json(result);
-//         })
-//         .catch(err => {
-//           console.log(err);
-//           res.status(500).json({
-//             error: err
-//           });
-//         });
-//   } catch (error) {
-//       res.status(400).json(error)
-//   }
-  
-// })
+indexRouter.post("/login", userLogin);
+
+indexRouter.get("/login", loginPage);
+
+indexRouter.get("/signup", signupPage);
+
+indexRouter.get("/profile", viewProfile);
+
+indexRouter.get("/logout", logoutController);
+
+indexRouter.get("/home", homeController);
+indexRouter.get("/home/:slug", blogDetailed);
+
 
 export default indexRouter;

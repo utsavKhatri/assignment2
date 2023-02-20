@@ -1,3 +1,20 @@
+<head>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .page-link {
+      width: 120px;
+      background-color: black;
+      color: aliceblue;
+    }
+    .previous {
+      color: black;
+    }
+    .pagination {
+      color: black;
+    }
+  </style>
+</head>
+
 <body>
   <!-- Sidenav -->
   <% include ../partials/sidebar %>
@@ -5,15 +22,17 @@
   <div class="main-content">
     <!-- Top navbar -->
     <% include ../partials/navbar %>
-    <!-- Header -->
-    <!-- <% include ../partials/header %> -->
     <!-- Page content -->
-    <div class="bg-gradient-primary pb-8 pt-5 pt-md-8">
-      <div class="row px-3">
-        <table  class="table bg-white m-5">
+    <div class="d-flex flex-column gap-4 bg-gradient-primary py-8 px-1 px-md-6">
+      <div class="header text-center">
+        <h1 class="text-light text-decoration-underline">All Blogs</h1>
+      </div>
+      <div class="table-responsive px-3 text-white">
+        <table id="example" class="table table-white">
           <thead>
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Thumbnail</th>
               <th scope="col">Title</th>
               <th scope="col">Category</th>
               <th scope="col">Description</th>
@@ -22,7 +41,7 @@
             </tr>
           </thead>
           <tbody>
-            <%  if(data.length<1){ %>
+            <% if(data.length<1){ %>
             <tr>
               <td colspan="5" class="text-center">
                 No data available in database
@@ -31,11 +50,18 @@
             <% } else{ data.map((v, i)=>{ %>
             <tr>
               <td><%= i+1 %></td>
+              <td>
+                <img
+                  src="uploads/<%= v.blogImage  %>"
+                  alt="thumbnail"
+                  style="width: 69px"
+                />
+              </td>
               <td><%= v.name %></td>
               <td><%= v.category %></td>
-              <td><%= v.description %></td>
+              <td><%= v.description.slice(0, 50)+"..." %></td>
               <td>
-                <a class="edit-btn" href="/edit/<%= v._id  %>"
+                <a class="edit-btn" href="/blogs/<%= v._id  %>"
                   ><i class="fa fa-duotone fa-pen-to-square"></i
                 ></a>
               </td>
@@ -50,34 +76,27 @@
             <% }) }%>
           </tbody>
         </table>
-
       </div>
-      
-      <!-- <% include ../partials/footer %> -->
     </div>
   </div>
   <!-- Include scripts -->
   <% include ../partials/scripts %>
 
   <script>
-
-const delBlog = document.querySelectorAll(".delete-btn");
-      delBlog.forEach((item) => {
-        item.addEventListener("click", (e) => {
-          const endpoint = `/blogs/${item.id}`;
-          console.log(endpoint);
-          fetch(endpoint, { method: "DELETE" })
-            .then((response) => response.json())
-            .then((data) => {
-              window.location.href = data.redirect;
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        });
+    const delBlog = document.querySelectorAll(".delete-btn");
+    delBlog.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        const endpoint = `/blogs/${item.id}`;
+        console.log(endpoint);
+        fetch(endpoint, { method: "DELETE" })
+          .then((response) => response.json())
+          .then((data) => {
+            window.location.href = data.redirect;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
-
-
+    });
   </script>
 </body>
-

@@ -27,7 +27,7 @@
               <div class="text-center text-muted mb-4">
                 <small>Or sign up with credentials</small>
               </div>
-              <form role="form" action="register" method="POST">
+              <form role="form" action="/register" method="POST">
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
@@ -44,7 +44,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" name="username" placeholder="Email" type="email" required>
+                    <input class="form-control" name="email" placeholder="Email" type="email" required>
                   </div>
                   <% if (locals.messages && messages.errors && messages.errors.username) { %>
                     <strong class="invalid-feedback" style="display: block"><%= messages.errors.username %></strong>
