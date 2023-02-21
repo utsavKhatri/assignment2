@@ -10,6 +10,7 @@ import blogRouter from "./routes/blog.js";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+// import bodyParser from "body-parser";
 
 // import requireLogin from './middlewares/checkAuth.js';
 
@@ -39,17 +40,14 @@ const __dirname = path.dirname(__filename);
 /* public folder as a static folder. */
 
 // app.use(express.static(path.join("public")));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.use(cookieParser());
 
 const oneDay = 1000 * 60 * 60 * 24;
-// const sessionStore = new MongoStore({
-//   mongooseConnection: conn,
-//   collection: "sessions",
-// });
-//session middleware
+
 app.use(
   session({
     secret: "secret",

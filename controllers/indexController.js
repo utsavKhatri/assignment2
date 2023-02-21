@@ -14,7 +14,9 @@ const createToken = (id) => {
 const dashboardController = (req, res) => {
   try {
     console.log("============= this is home page =======================");
-    console.log(req.session.user);
+    console.log(req.session.user);    
+    console.log("====================================");
+    console.log(req.session.jwt);  
     console.log("====================================");
     Blog.find()
       .then((result) => {
@@ -24,7 +26,8 @@ const dashboardController = (req, res) => {
         console.log(err);
       });
   } catch (error) {
-    console.log(error);
+    res.json(error.message);
+    console.log(error.message);
   }
 };
 
@@ -35,7 +38,7 @@ const iconController = (req, res) => {
 const addBlog = (req, res) => {
   Category.find()
     .then((result) => {
-      res.render("pages/maps", { catData: result, isLogged: true });
+      res.render("pages/createBlog", { catData: result, isLogged: true });
     })
     .catch((err) => {
       console.log(err);
@@ -85,9 +88,11 @@ const userSignup = async (req, res, next) => {
       name: newUser.name,
       email: newUser.email,
     };
+    req.session.isAdmin = newUser.isAdmin;
 
     console.log("====================================");
     console.log(req.session.user);
+    console.log(req.session.isAdmin);
     console.log("====================================");
 
     res.redirect("/login");
@@ -106,7 +111,11 @@ const userLogin = async (req, res) => {
     console.log("====================================");
     // Check if user is already logged in
     if (req.session.user) {
-      return res.redirect("/");
+      if (req.session.user.isAdmin) {
+        res.redirect("/");
+      }else{
+        return res.redirect("/home");
+      }
     }
 
     // Check if user exists in the database
@@ -120,13 +129,22 @@ const userLogin = async (req, res) => {
     if (!passwordMatches) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
+
     const token = createToken(user._id);
     req.session.jwt = token;
 
     console.log("this is cookie from session" + req.session.jwt);
     // Set the session data and redirect to homepage
-    req.session.user = { id: user._id, email: user.email };
-    return res.status(200).redirect("/");
+    req.session.user = {
+      id: user._id,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    };
+    if (user.isAdmin) {
+      req.session.isAdmin = true;
+      return res.status(200).redirect("/");
+    }
+    return res.status(200).redirect("/home");
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -137,7 +155,11 @@ const loginPage = (req, res, next) => {
   try {
     console.log("this is login page " + req.session.user || req.session.id);
     if (req.session.user) {
-      res.redirect("/");
+      if (req.session.isAdmin) {
+        res.redirect('/')
+      }else{
+        res.redirect("/home");
+      }
     } else {
       res.render("pages/login");
     }
@@ -175,9 +197,11 @@ const logoutController = (req, res) => {
 
 const homeController = async (req, res) => {
   try {
+
+    const profile = req.session.user;
     const blogData = await Blog.find().sort({ createdAt: -1 });
 
-    res.render("pages/home", { data: blogData });
+    res.render("pages/home", { data: blogData, userData: profile });
   } catch (error) {
     console.log(error.message);
   }
@@ -195,6 +219,10 @@ const blogDetailed = async (req, res) => {
   }
 };
 
+const aboutPage = (req,res)=>{
+  res.render("pages/about");
+}
+
 export {
   dashboardController,
   iconController,
@@ -209,4 +237,6 @@ export {
   logoutController,
   homeController,
   blogDetailed,
+  aboutPage,
+  maxAge,
 };

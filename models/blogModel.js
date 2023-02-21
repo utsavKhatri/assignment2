@@ -1,13 +1,14 @@
-import mongoose from "mongoose";
-
+import mongoose, { Schema } from "mongoose";
 
 const blogSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     category: { type: String, required: true },
     description: { type: String, required: true },
-    blogImage:{ type: String, required: true },
-    slug: {type: String, required: true },
+    blogImage: { type: Schema.Types.Mixed },
+    slug: { type: String, required: true },
+    publishDate: { type: Date, required: true },
+    thumbnail: { type: Schema.Types.Mixed },
   },
   {
     timestamps: true,

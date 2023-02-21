@@ -10,12 +10,13 @@
       <!-- Top navbar -->
       <% include ../partials/navbar %>
       <!-- Page content -->
-      <div class="bg-gradient-primary py-8 px-1 px-md-6">
-        <div class="header text-center mb-4">
+      <div class="bg-gradient-primary py-8 px-1 px-md-6" style="height: fit-content;">
+        <div class="header d-flex justify-content-between px-5 mb-5">
           <h1 class="text-light text-decoration-underline">All Categories</h1>
+          <a href="/add-category"><button class="btn btn-dark">+</button></a>
         </div>
         <div class="table-responsive px-5 text-white">
-            <table class="table bg-white p-3">
+            <table id="example" class="table bg-white p-3">
               <thead>
                 <tr>
                   <th scope="col">#</th>

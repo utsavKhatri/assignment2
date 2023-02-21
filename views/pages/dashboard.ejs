@@ -23,7 +23,7 @@
     <!-- Top navbar -->
     <% include ../partials/navbar %>
     <!-- Page content -->
-    <div class="d-flex flex-column gap-4 bg-gradient-primary py-8 px-1 px-md-6">
+    <div class="d-flex flex-column gap-4 bg-gradient-primary py-8 px-1 px-md-6" style="height: max-content;">
       <div class="header text-center">
         <h1 class="text-light text-decoration-underline">All Blogs</h1>
       </div>
@@ -33,6 +33,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Thumbnail</th>
+              <th scope="col">Publish Date</th>
               <th scope="col">Title</th>
               <th scope="col">Category</th>
               <th scope="col">Description</th>
@@ -52,14 +53,17 @@
               <td><%= i+1 %></td>
               <td>
                 <img
-                  src="uploads/<%= v.blogImage  %>"
+                  src="uploads/<%= v.thumbnail[0].filename  %>"
                   alt="thumbnail"
                   style="width: 69px"
                 />
               </td>
+              <% const date = v.publishDate.getDate()
+              +"-"+v.publishDate.getMonth() +"-"+v.publishDate.getFullYear() %>
+              <td><%= date %></td>
               <td><%= v.name %></td>
               <td><%= v.category %></td>
-              <td><%= v.description.slice(0, 50)+"..." %></td>
+              <td><%= v.description.slice(0,50) %>...</td>
               <td>
                 <a class="edit-btn" href="/blogs/<%= v._id  %>"
                   ><i class="fa fa-duotone fa-pen-to-square"></i

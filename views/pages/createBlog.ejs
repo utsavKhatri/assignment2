@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      src="https://cdn.tiny.cloud/1/wkocoy4qqfy8m3dbxqvyt72hqinq9ysck15l8qencxtflqir/tinymce/6/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+  </head>
+  <body>
+    <!-- Sidenav -->
+    <% include ../partials/sidebar %>
+    <!-- Main content -->
+    <div class="main-content">
+      <!-- Top navbar -->
+      <% include ../partials/navbar %>
+
+      <div class="bg-gradient-primary pb-8 pt-5 pt-md-8">
+        <div class="container-fluid">
+          <h1 class="text-white">create new blog</h1>
+          <form
+            class="text-white"
+            action="/blogs/add-blog"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="row row-cols-1 row-cols-sm-2">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Blog title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    name="name"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <label class="form-label" for="select">Select category</label>
+                  <select
+                    class="form-control"
+                    aria-label="Default select example"
+                    style="
+                      width: 100%;
+                      border: 0.1em solid rgb(193, 193, 193);
+                      border-radius: 5px;
+                      color: rgb(116, 116, 116);
+                      background-color: white;
+                    "
+                    name="category"
+                    required
+                  >
+                    <% if(catData.length>1){ catData.map(v=>{ %>
+                    <option value="<%= v.categoryName %>">
+                      <%= v.categoryName %>
+                    </option>
+                    <% }) }%>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="mb-3">
+                <label class="form-label" for="publishDateInput">Publish Date :</label>
+                <input
+                  type="date"
+                  name="publishdate"
+                  class="form-control"
+                  id="publishDateInput"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="Inputthumbnail">Upload Thumbnail :</label>
+
+              <div class="input-group">
+                <input
+                  type="file"
+                  class="form-control"
+                  name="thumbnails"
+                  aria-placeholder="select thumbnail want to upload"
+                  id="Inputthumbnail"
+                  aria-describedby="inputGroupFileAddon04"
+                  aria-label="Upload"
+                  style="line-height: 2;"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="Inputfile">Upload images :</label>
+
+              <div class="input-group">
+                <input
+                  type="file"
+                  class="form-control"
+                  name="images"
+                  aria-placeholder="select image want to upload"
+                  id="inputGroupFile04"
+                  aria-describedby="inputGroupFileAddon04"
+                  aria-label="Upload"
+                  style="line-height: 2;"
+                />
+              </div>
+            </div>
+          
+
+            <div class="mb-3">
+              <label class="form-label" for="exampleInputDescription1" class="form-label"
+                >Description</label
+              >
+              <textarea
+                type="text"
+                style="height: 350px"
+                id="exampleInputDescription1"
+                name="description"
+              ></textarea>
+            </div>
+
+                <div class="d-flex flex-row justify-content-between gap-4 my-3">
+            <div>
+              <button type="submit" class="btn btn-dark">
+                Create Blog
+              </button>
+            </div>
+            <div>
+              <button type="reset" class="btn btn-danger">Cancel</button>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+
+      <% include ../partials/footer %>
+    </div>
+
+    <script>
+      tinymce.init({
+        selector: "textarea",
+        plugins:
+          "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss",
+        toolbar:
+          "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+        tinycomments_mode: "embedded",
+        tinycomments_author: "Author name",
+        mergetags_list: [
+          { value: "First.Name", title: "First Name" },
+          { value: "Email", title: "Email" },
+        ],
+      });
+    </script>
+
+    <!-- Include scripts -->
+    <% include ../partials/scripts %>
+  </body>
+</html>

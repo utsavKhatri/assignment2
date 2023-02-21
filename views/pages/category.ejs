@@ -6,7 +6,7 @@
       <!-- Top navbar -->
       <% include ../partials/navbar %>
   
-      <div class="bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="bg-gradient-primary pb-8 pt-5 pt-md-8" style="height: 90dvh;">
         <div class="container-fluid">
   
           <h1 class="text-white">create new category</h1>
@@ -24,8 +24,11 @@
                     required
                   />
                 </div>
+                <div class="d-flex justify-content-start gap-4">
+                  <button type="submit" class="btn btn-success">Create</button>
+<button type="reset" class="btn btn-danger">Cancel</button>
+                </div>
   
-                <button type="submit" class="btn btn-success">Create</button>
               </form>
             
    
