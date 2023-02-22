@@ -6,10 +6,10 @@ const blogSchema = new mongoose.Schema(
     name: { type: String, required: true },
     category: { type: String, required: true },
     description: { type: String, required: true },
-    blogImage: { type: Schema.Types.Mixed },
+    blogImage: { type: Schema.Types.Mixed, required: true },
     slug: { type: String, required: true },
     publishDate: { type: Date, required: true },
-    thumbnail: { type: Schema.Types.Mixed },
+    thumbnail: { type: Schema.Types.Mixed, required: true },
     subtitle:{ type: String, required: true },
     author:{ type: String, required: true }
   },

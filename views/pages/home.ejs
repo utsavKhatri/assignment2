@@ -3,21 +3,11 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#!">Start Bootstrap</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="collapse navbar-collapse justify-content-between"
-        id="navbarSupportedContent"
-      >
+      <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/home">Home</a>
@@ -31,17 +21,16 @@
         </ul>
 
         <div class="btn-group">
-          <button
-            type="button"
-            class="btn btn-danger dropdown-toggle"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+          <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             Profile
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item"><%= userData.name %></a></li>
-            <li><a class="dropdown-item"><%= userData.email %></a></li>
+            <li><a class="dropdown-item">
+                <%= userData.name %>
+              </a></li>
+            <li><a class="dropdown-item">
+                <%= userData.email %>
+              </a></li>
             <li>
               <a class="dropdown-item text-danger" href="/logout">Logout</a>
             </li>
@@ -51,7 +40,8 @@
     </div>
   </nav>
   <!-- Page header with logo and tagline-->
-  <header class="py-5 bg-light border-bottom mb-4" style="background-image: url('https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'); background-size: cover;">
+  <header class="py-5 bg-light border-bottom mb-4"
+    style="background-image: url('https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'); background-size: cover;">
     <div class="container">
       <div class="text-center my-5">
         <h1 class="fw-bolder">Welcome to Blog Home!</h1>
@@ -59,83 +49,75 @@
     </div>
   </header>
   <!-- Page content-->
-  <div class="container">
+
+<% if(data.length>0){
+%>
+<div class="container">
     <div class="row">
       <!-- Blog entries-->
       <div class="col-lg-8">
         <!-- Featured blog post-->
 
-        <% if(isResult === false){ %>
-        <h2>Latest Blog</h2>
-        <div class="card mb-4">
-          <a href="#!"
-            ><img
-              class="card-img-top"
-              src="uploads/<%= data[0].blogImage[0].filename %>"
-              alt="..."
-          /></a>
-          <div class="card-body">
-            <div class="small text-muted">
-              Published on :<%= data[0].publishDate.toLocaleString() %>
-            </div>
-            <h2 class="card-title"><%= data[0].name %></h2>
-            <p class="card-text"><%= data[0].subtitle %>...</p>
-            <a class="btn btn-primary" href="/home/<%= data[0].slug  %>"
-              >Read more →</a
-            >
-          </div>
-        </div>
-        <% }else{ searchResult.map(item =>{ %>
-
-        <h2>Relevant search result...</h2>
-        <div class="card mb-4">
-          <a href="#!"
-            ><img
-              class="card-img-top"
-              src="uploads/<%= item.blogImage[0].filename %>"
-              alt="..."
-          /></a>
-          <div class="card-body">
-            <div class="small text-muted">
-              Published on :<%= item.publishDate.toLocaleString() %>
-            </div>
-            <h2 class="card-title"><%= item.name %></h2>
-            <p class="card-text"><%= item.subtitle %>...</p>
-            <a class="btn btn-primary" href="/home/<%= item.slug  %>"
-              >Read more →</a
-            >
-          </div>
-        </div>
-        <% }) } %>
-
-        <!-- Nested row for non-featured blog posts-->
-        <div class="row">
-          <% data.map(v=>{ %>
-          <div class="col-11 col-lg-5 px-sm-0 card m-4">
-            <a href="#!"
-              ><img
-                class="card-img-top"
-                src="uploads/<%= v.blogImage[0].filename %>"
-                alt="..."
-            /></a>
+        <% if(isResult===false){ %>
+          <h2>Latest Blog</h2>
+          <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" src="uploads/<%= data[0].blogImage[0].filename %>" alt="..." /></a>
             <div class="card-body">
               <div class="small text-muted">
-                Published on: <%= v.publishDate.toLocaleString() %>
+                Published on :<%= data[0].publishDate.toLocaleString() %>
               </div>
-              <h2 class="card-title h4"><%= v.name %></h2>
-              <p class="card-text"><%- v.subtitle %>...</p>
-              <a class="btn btn-primary" href="/home/<%= v.slug  %>"
-                >Read more →</a
-              >
+              <h2 class="card-title">
+                <%= data[0].name %>
+              </h2>
+              <p class="card-text">
+                <%= data[0].subtitle %>...
+              </p>
+              <a class="btn btn-primary" href="/home/<%= data[0].slug  %>">Read more →</a>
             </div>
           </div>
-          <% }) %>
-          <!-- Blog post-->
+          <% }else{ searchResult.map(item=>{ %>
 
-          <!-- Blog post-->
-        </div>
-        <!-- Pagination-->
-        <!-- <nav aria-label="Pagination">
+            <h2>Relevant search result...</h2>
+            <div class="card mb-4">
+              <a href="#!"><img class="card-img-top" src="uploads/<%= item.blogImage[0].filename %>" alt="..." /></a>
+              <div class="card-body">
+                <div class="small text-muted">
+                  Published on :<%= item.publishDate.toLocaleString() %>
+                </div>
+                <h2 class="card-title">
+                  <%= item.name %>
+                </h2>
+                <p class="card-text">
+                  <%= item.subtitle %>...
+                </p>
+                <a class="btn btn-primary" href="/home/<%= item.slug  %>">Read more →</a>
+              </div>
+            </div>
+            <% }) } %>
+
+              <!-- Nested row for non-featured blog posts-->
+              <div class="row">
+                <% data.map(v=>{ %>
+                  <div class="col-11 col-lg-5 px-sm-0 card m-4">
+                    <a href="#!"><img class="card-img-top" src="uploads/<%= v.blogImage[0].filename %>" alt="..." /></a>
+                    <div class="card-body">
+                      <div class="small text-muted">
+                        Published on: <%= v.publishDate.toLocaleString() %>
+                      </div>
+                      <h2 class="card-title h4">
+                        <%= v.name %>
+                      </h2>
+                      <p class="card-text"><%- v.subtitle %>...</p>
+                      <a class="btn btn-primary" href="/home/<%= v.slug  %>">Read more →</a>
+                    </div>
+                  </div>
+                  <% }) %>
+                    <!-- Blog post-->
+
+                    <!-- Blog post-->
+              </div>
+              <!-- Pagination-->
+              <!-- <nav aria-label="Pagination">
           <hr class="my-0" />
           <ul class="pagination justify-content-center my-4">
             <li class="page-item disabled">
@@ -163,15 +145,8 @@
           <div class="card-header">Search</div>
           <div class="card-body">
             <form class="input-group" action="/home" method="get">
-              <input
-                class="form-control"
-                type="text"
-                id="search-input"
-                name="searchTerm"
-                placeholder="Enter search term..."
-                aria-label="Enter search term..."
-                aria-describedby="button-search"
-              />
+              <input class="form-control" type="text" id="search-input" name="searchTerm"
+                placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
               <button class="btn btn-primary" id="button-search" type="submit">
                 Go!
               </button>
@@ -186,8 +161,10 @@
               <div class="col">
                 <ul class="list-unstyled mb-0 row">
                   <% categoryData.map(l=>{ %>
-                  <li class="col-6"><a href="/home/category/<%= l.categoryName %>"><%= l.categoryName %></a></li>
-                  <% }) %>
+                    <li class="col-6"><a href="/home/category/<%= l.categoryName %>">
+                        <%= l.categoryName %>
+                      </a></li>
+                    <% }) %>
                 </ul>
               </div>
 
@@ -205,6 +182,18 @@
       </div>
     </div>
   </div>
+<%
+
+}else{
+
+  %>
+  <div class="container w-100 vh-75 text-center">
+    
+    <h1>There are no blog available here</h1></div>
+  <%
+} %>
+
+
   <!-- Footer-->
   <footer class="py-5 bg-dark">
     <div class="container">

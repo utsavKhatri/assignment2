@@ -67,7 +67,6 @@ const addBlog = (req, res) => {
     });
 };
 
-
 // It fetches all the categories from the database and renders the categories page with the fetched data
 
 const viewCategory = (req, res) => {
@@ -83,7 +82,6 @@ const viewCategory = (req, res) => {
     console.log(error);
   }
 };
-
 
 // It renders the category page
 
@@ -161,7 +159,7 @@ const userLogin = async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-/* Creating a token and setting it to the session. */
+    /* Creating a token and setting it to the session. */
     const token = createToken(user._id);
 
     req.session.jwt = token;
@@ -173,7 +171,7 @@ const userLogin = async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
     };
-/* Checking if the user is an admin or not. If the user is an admin, then it sets the session data and
+    /* Checking if the user is an admin or not. If the user is an admin, then it sets the session data and
 redirects to the homepage. */
     if (user.isAdmin) {
       req.session.isAdmin = true;
@@ -274,7 +272,6 @@ const homeController = async (req, res) => {
       userData: profile,
       isResult: false,
       categoryData: categoryData,
-
     });
   } catch (error) {
     console.log(error.message);
@@ -311,7 +308,7 @@ const categoryPage = async (req, res) => {
       data: blogData,
       categoryData: categoryData,
       userData: profile,
-      categoryName: term
+      categoryName: term,
     });
   } catch (error) {
     console.log(error.message);
