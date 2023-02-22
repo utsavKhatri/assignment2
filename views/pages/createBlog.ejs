@@ -23,8 +23,8 @@
             method="post"
             enctype="multipart/form-data"
           >
-            <div class="row row-cols-1 row-cols-sm-2">
-              <div class="col">
+            <div class="row">
+              <div class="col-12">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label"
                     >Blog title</label
@@ -39,6 +39,41 @@
                   />
                 </div>
               </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="exampleInputsubtxt1" class="form-label"
+                    >Subtitle</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputsubtxt1"
+                    aria-describedby="emailHelp"
+                    name="subtitle"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="mb-3">
+                  <label class="form-label" for="publishDateInput"
+                    >Publish Date :</label
+                  >
+                  <input
+                    type="date"
+                    name="publishdate"
+                    class="form-control"
+                    id="publishDateInput"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2">
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label" for="select">Select category</label>
@@ -63,21 +98,22 @@
                   </select>
                 </div>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="mb-3">
-                <label class="form-label" for="publishDateInput">Publish Date :</label>
-                <input
-                  type="date"
-                  name="publishdate"
-                  class="form-control"
-                  id="publishDateInput"
-                />
+              <div class="col">
+                <div class="mb-3">
+                  <label class="form-label" for="authorInput">Author</label>
+                  <input
+                    type="text"
+                    name="author"
+                    class="form-control"
+                    id="authorInput"
+                  />
+                </div>
               </div>
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="Inputthumbnail">Upload Thumbnail :</label>
+            <div class="row mb-3">
+              <label class="form-label" for="Inputthumbnail"
+                >Upload Thumbnail :</label
+              >
 
               <div class="input-group">
                 <input
@@ -88,11 +124,11 @@
                   id="Inputthumbnail"
                   aria-describedby="inputGroupFileAddon04"
                   aria-label="Upload"
-                  style="line-height: 2;"
+                  style="line-height: 2"
                 />
               </div>
             </div>
-            <div class="mb-3">
+            <div class="row mb-3">
               <label class="form-label" for="Inputfile">Upload images :</label>
 
               <div class="input-group">
@@ -104,14 +140,16 @@
                   id="inputGroupFile04"
                   aria-describedby="inputGroupFileAddon04"
                   aria-label="Upload"
-                  style="line-height: 2;"
+                  style="line-height: 2"
                 />
               </div>
             </div>
-          
 
             <div class="mb-3">
-              <label class="form-label" for="exampleInputDescription1" class="form-label"
+              <label
+                class="form-label"
+                for="exampleInputDescription1"
+                class="form-label"
                 >Description</label
               >
               <textarea
@@ -122,16 +160,14 @@
               ></textarea>
             </div>
 
-                <div class="d-flex flex-row justify-content-between gap-4 my-3">
-            <div>
-              <button type="submit" class="btn btn-dark">
-                Create Blog
-              </button>
+            <div class="d-flex flex-row justify-content-between gap-4 my-3">
+              <div>
+                <button type="submit" class="btn btn-dark">Create Blog</button>
+              </div>
+              <div>
+                <button type="reset" class="btn btn-danger">Cancel</button>
+              </div>
             </div>
-            <div>
-              <button type="reset" class="btn btn-danger">Cancel</button>
-            </div>
-          </div>
           </form>
         </div>
       </div>

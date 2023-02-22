@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
+/* This is creating a schema for the blog model. */
 const blogSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -9,6 +10,8 @@ const blogSchema = new mongoose.Schema(
     slug: { type: String, required: true },
     publishDate: { type: Date, required: true },
     thumbnail: { type: Schema.Types.Mixed },
+    subtitle:{ type: String, required: true },
+    author:{ type: String, required: true }
   },
   {
     timestamps: true,

@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 
+/* Creating a schema for the user model. */
 const userSchema = new mongoose.Schema(
   {
-    name:{
-      type:String,
-      required:true,
+    name: {
+      type: String,
+      required: true,
     },
     email: {
       type: String,
@@ -14,7 +15,7 @@ const userSchema = new mongoose.Schema(
         /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
     },
     password: { type: String, required: true },
-    isAdmin:{type:Boolean, default:false}
+    isAdmin: { type: Boolean, default: false },
   },
   {
     timestamps: true,

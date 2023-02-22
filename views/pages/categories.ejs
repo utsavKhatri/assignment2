@@ -1,96 +1,82 @@
 
-
-
-
 <body>
-    <!-- Sidenav -->
-    <% include ../partials/sidebar %>
-    <!-- Main content -->
-    <div class="main-content">
-      <!-- Top navbar -->
-      <% include ../partials/navbar %>
-      <!-- Page content -->
-      <div class="bg-gradient-primary py-8 px-1 px-md-6" style="height: fit-content;">
-        <div class="header d-flex justify-content-between px-5 mb-5">
-          <h1 class="text-light text-decoration-underline">All Categories</h1>
-          <a href="/add-category"><button class="btn btn-dark">+</button></a>
-        </div>
-        <div class="table-responsive px-5 text-white">
-            <table id="example" class="table bg-white p-3">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Edit</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% if(catData.length<1){ %>
-                <tr>
-                  <td colspan="5" class="text-center">
-                    No data available in database
-                  </td>
-                </tr>
-                <% } else{ catData.map((v, i)=>{ %>
-                <tr>
-                  <td><%= i+1 %></td>
-                  <td><%= v.categoryName %></td>
-                  <td>
-                    <a class="edit-btn" href="/blogs/edit-category/<%= v._id  %>"
-                      ><i class="fa fa-duotone fa-pen-to-square"></i
-                    ></a>
-                  </td>
-                  <td>
-                    <i
-                      id="<%= v._id  %>"
-                      class="delete-btn fa fa-duotone fa-trash"
-                    ></i>
-                    <!-- <img id="<%= v.id  %>" class="delete-btn" src="https://img.icons8.com/fluency/24/null/delete-forever.png"/> -->
-                  </td>
-                </tr>
-                <% }) }%>
-              </tbody>
-            </table>
-          </div>
-        <!-- <% include ../partials/footer %> -->
+  <!-- Sidenav -->
+  <% include ../partials/sidebar %>
+  <!-- Main content -->
+  <div class="main-content">
+    <!-- Top navbar -->
+    <% include ../partials/navbar %>
+    <!-- Page content -->
+    <div
+      class="bg-gradient-primary py-8 px-1 px-md-6"
+      style="height: fit-content"
+    >
+      <div class="header d-flex justify-content-between px-5 mb-5">
+        <h1 class="text-light text-decoration-underline">All Categories</h1>
+        <a href="/add-category"><button class="btn btn-dark">+</button></a>
       </div>
+      <div class="table-responsive px-5 text-white">
+        <table id="example" class="table bg-white p-3">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(catData.length<1){ %>
+            <tr>
+              <td colspan="5" class="text-center">
+                No data available in database
+              </td>
+            </tr>
+            <% } else{ catData.map((v, i)=>{ %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= v.categoryName %></td>
+              <td>
+                <a class="edit-btn" href="/blogs/edit-category/<%= v._id  %>"
+                  ><i class="fa fa-duotone fa-pen-to-square"></i
+                ></a>
+              </td>
+              <td>
+                <i
+                  id="<%= v._id  %>"
+                  class="delete-btn fa fa-duotone fa-trash"
+                ></i>
+                <!-- <img id="<%= v.id  %>" class="delete-btn" src="https://img.icons8.com/fluency/24/null/delete-forever.png"/> -->
+              </td>
+            </tr>
+            <% }) }%>
+          </tbody>
+        </table>
+      </div>
+      <!-- <% include ../partials/footer %> -->
     </div>
-    <!-- Include scripts -->
-    <% include ../partials/scripts %>
-  
-    <script>
+  </div>
+  <script>
+    const deleteCat = document.querySelectorAll('.delete-btn');
 
-  
-  
-      const deleteCat = document.querySelectorAll('.delete-btn');
-      deleteCat.forEach((item) => {
-        item.addEventListener("click", (e) => {
-          const endpoint = `/blogs/remove-category/${item.id}`;
-          console.log(endpoint);
-          fetch(endpoint, { method: "DELETE" })
-            .then((response) => response.json())
-            .then((data) => {
-              window.location.href = data.redirect;
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        });
+    // post delete request handling
+    deleteCat.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        const endpoint = `/blogs/remove-category/${item.id}`;
+        console.log(endpoint);
+        fetch(endpoint, { method: "DELETE" })
+          .then((response) => response.json())
+          .then((data) => {
+            window.location.href = data.redirect;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
-  
-  
-    </script>
-  </body>
-  
+    });
+</script>
 
+  <!-- Include scripts -->
+  <% include ../partials/scripts %>
 
-
-
-
-
-
-
-
-
-
+</body>
